@@ -29,7 +29,6 @@ public class Enemy : Spaceship
 
         if ((transform.position - targetPosition).sqrMagnitude < 0.05)
         {
-            Debug.Log("teste");
             currentPathIndex--;
         }
 
