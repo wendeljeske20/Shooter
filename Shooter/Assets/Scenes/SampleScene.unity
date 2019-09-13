@@ -149,8 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014d9966a4af5514f9d79de504cecd7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightOffset: 0
-  highlight: 1
   defaultColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   highlightColor: {r: 0, g: 0.7607843, b: 1, a: 1}
   pathList:
@@ -158,6 +156,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7a5b45e2d04720a449b17c4e62356909, type: 2}
   selectedPathIndex: 0
   interval: 1
+  time: 0
 --- !u!4 &22994217
 Transform:
   m_ObjectHideFlags: 0
@@ -246,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436694663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -9.74}
   m_LocalScale: {x: 45.31872, y: 25.491781, z: 0.9341092}
   m_Children: []
   m_Father: {fileID: 0}
@@ -517,7 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afb784981ec99408215501b1cbfc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 30
   path: {fileID: 11400000, guid: acb1eef0ac03b8f4a8396f03152bd0c0, type: 2}
   currentPathIndex: 0
 --- !u!4 &2086358664

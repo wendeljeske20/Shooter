@@ -25,7 +25,7 @@ public class PathManager : MonoBehaviour
 
     //public float last1 = 1, last2 = 1, current = 2;
 
-    public int highlightOffset, highlight;
+
 
     public Color defaultColor;
     public Color highlightColor;
@@ -36,6 +36,7 @@ public class PathManager : MonoBehaviour
 
     public float interval;
 
+    public float time;
     private void Start()
     {
 
@@ -48,6 +49,8 @@ public class PathManager : MonoBehaviour
         {
             //Debug.Log("teste");
         }
+
+
     }
 
 
@@ -56,13 +59,15 @@ public class PathManager : MonoBehaviour
         if (selectedPathIndex < pathList.Count)
         {
             Path selectedPath = pathList[selectedPathIndex];
-            selectedPath.CreatePositions();
+            //selectedPath.CreatePositions();
+
+         
 
             for (int i = 0; i < selectedPath.pointsAmount; i++)
             {
 
                 Gizmos.color = defaultColor;
-                if ((i + highlightOffset) % highlight == 0)
+                if ((i + selectedPath.highlightOffset) % selectedPath.highlight == 0)
                 {
                     Gizmos.color = highlightColor;
                 }
