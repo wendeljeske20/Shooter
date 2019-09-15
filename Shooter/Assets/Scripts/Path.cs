@@ -8,6 +8,7 @@ public class Path : ScriptableObject
     public enum CurveType
     {
         Simple,
+        Simple2,
         Ondulated,
         Spiral,
     }
@@ -87,6 +88,11 @@ public class Path : ScriptableObject
         }
     }
 
+    public Vector3 StartPosition { get { return positionList[0]; } }
+    public Vector3 EndPosition { get { return positionList[positionList.Count - 1]; } }
+
+    
+
     public void CreateSimpleCurve()
     {
         for (int i = less; i < greater; i++)
@@ -98,6 +104,36 @@ public class Path : ScriptableObject
 
             float x = radius.x * (t * t - 3);
             float y = radius.y * (2 * t + 1);
+
+            float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
+            float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
+
+            x = u;
+            y = v;
+
+
+            Vector3 position = new Vector3(x, y, 0) * indivisualScale * scale;
+            position.x += offset.x;
+            position.y += offset.y;
+
+            AddPosition(i, position);
+
+
+
+        }
+    }
+
+    public void CreateSimpleCurve2()
+    {
+        for (int i = less; i < greater; i++)
+        {
+
+            float t = i * multiplier.x;// * ((360f * multiplier.x) / (pointsAmount - 1f));
+
+
+
+            float x = radius.x * t;
+            float y = radius.y * t * t * t;
 
             float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
             float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
@@ -237,6 +273,8 @@ public class Path : ScriptableObject
             CreateOndulatedCurve();
         else if (curveType == CurveType.Spiral)
             CreateSpiralCurve();
+        else if (curveType == CurveType.Simple2)
+            CreateSimpleCurve2();
 
     }
 

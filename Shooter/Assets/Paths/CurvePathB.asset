@@ -17,6 +17,7 @@ MonoBehaviour:
   turnFraction: 51.03
   scale: 0.1
   indivisualScale: {x: 1, y: 1}
+  pow: 1
   less: -20
   greater: 21
   rotationAngle: 0

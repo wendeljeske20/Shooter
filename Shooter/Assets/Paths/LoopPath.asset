@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1c1551e324a934598bba0bf10fbde4, type: 3}
   m_Name: LoopPath
   m_EditorClassIdentifier: 
-  curveType: 1
+  curveType: 2
   pointsAmount: 40
   turnFraction: 1
   scale: 5
