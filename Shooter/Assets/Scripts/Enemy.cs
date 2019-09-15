@@ -10,7 +10,7 @@ public class Enemy : Spaceship
     public int currentPathIndex;
     private void Start()
     {
-        currentPathIndex = path.pointsAmount - 1;
+        currentPathIndex = path.positionList.Count - 1;
 
         transform.position = path.positionList[currentPathIndex];
     }

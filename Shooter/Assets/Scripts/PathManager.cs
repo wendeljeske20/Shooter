@@ -3,20 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-// [CustomEditor(typeof(PathManager))]
-// public class PathManagerEditor : Editor
-// {
-//     public override void OnInspectorGUI()
-//     {
-//         DrawDefaultInspector();
-
-//         PathManager pathManager = (PathManager)target;
-//         if (GUILayout.Button("Update Path"))
-//         {
-//             pathManager.ResetPathPositions();
-//         }
-//     }
-// }
 public class PathManager : MonoBehaviour
 {
 
@@ -32,15 +18,13 @@ public class PathManager : MonoBehaviour
 
     public List<Path> pathList = new List<Path>();
     [Range(0, 10)] public int selectedPathIndex;
-    //float x, y;
 
-    // public float interval;
 
-    // public float time;
-    private void Start()
-    {
+    // private void OnValidate() {
+    //      if (selectedPathIndex >= pathList.Count)
+    //         selectedPathIndex = pathList.Count;
+    // }
 
-    }
     private void Update()
     {
 
@@ -49,8 +33,8 @@ public class PathManager : MonoBehaviour
         {
             //Debug.Log("teste");
         }
-// Path selectedPath = pathList[selectedPathIndex];
-// selectedPath.MovePoints();
+        // Path selectedPath = pathList[selectedPathIndex];
+        // selectedPath.MovePoints();
 
     }
 
@@ -96,29 +80,36 @@ public class PathManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-
-        if (selectedPathIndex < pathList.Count)
+        if (selectedPathIndex >= pathList.Count)
+            return;
+            
+        if (drawLines && pathList[selectedPathIndex].positionList.Count > 1)
+            DrawPathLines(pathList[selectedPathIndex]);
+        else
         {
-            Path selectedPath = pathList[selectedPathIndex];
-            if (drawLines && selectedPath.positionList.Count > 1)
-                DrawPathLines(selectedPath);
-            else
-            {
-                LineRenderer line = GetComponent<LineRenderer>();
-                line.enabled = false;
-            }
+            LineRenderer line = GetComponent<LineRenderer>();
+            line.enabled = false;
+        }
+
+
+        for (int i = 0; i < pathList.Count; i++)
+        {
+
+
+            Path selectedPath = pathList[i];
+
 
             if (drawPoints)
                 DrawPathPoints(selectedPath);
 
-            if (selectedPath.curveType == Path.CurveType.Bezier)
-            {
-                DrawControlPoints(selectedPath);
-            }
-
-
+            // if (selectedPath.curveType == Path.CurveType.Bezier)
+            // {
+            //     DrawControlPoints(selectedPath);
+            // }
 
         }
+
+
 
     }
 

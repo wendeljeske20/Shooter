@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Path", menuName = "Path")]
+[CreateAssetMenu(fileName = "Path", menuName = "Path")]
 public class Path : ScriptableObject
 {
     public enum CurveType
     {
-        Parametric,
-        Bezier
+        Simple,
+        Ondulated,
+        Spiral,
     }
     public CurveType curveType;
 
@@ -16,14 +17,22 @@ public class Path : ScriptableObject
     public int pointsAmount = 10;
     public float turnFraction = 1;
     public float scale = 1;
+    public Vector2 indivisualScale = Vector2.one;
     public float pow = 1;
+
+    public int less, greater = 100;
+
+    public float rotationAngle;
 
     public Vector2 radius = Vector2.one;
 
+    public Vector2 angulation = Vector2.one;
+
+    public Vector2 multiplier = Vector2.one;
+    public Vector2 offset = Vector2.zero;
+
     [Range(1, 10)] public int highlight = 1;
     public int highlightOffset;
-
-    public Vector2 test = Vector2.one;
 
     public List<Vector3> positionList = new List<Vector3>();
 
@@ -37,40 +46,104 @@ public class Path : ScriptableObject
 
     private void Start()
     {
-        CreateParametricCurve();
+        //CreateParametricCurve();
     }
 
-    public void CreateParametricCurve()
+    public void CreateSpiralCurve()
     {
 
-        for (int i = 0; i < pointsAmount; i++)
+        for (int i = less; i < greater; i++)
         {
             float t = Mathf.Pow(i / (pointsAmount - 1f), pow);
             //float inclination = Mathf.Acos(1 - 2 * t);
-            float azimuth = 2 * Mathf.PI * turnFraction * i;
+            float azimuth = 2 * Mathf.PI * (turnFraction / 1000f) * i;
 
-            float x = radius.x * t * Mathf.Cos(azimuth / 1000 * test.x);
-            float y = radius.y * t * Mathf.Sin(azimuth / 1000 * test.y);
+            float x = radius.x * t * Mathf.Cos(azimuth * angulation.x);
+            float y = radius.y * t * Mathf.Sin(azimuth * angulation.y);
 
-            // float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth * test);
-            // float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth * test2);
-            // float z = Mathf.Cos(inclination);
+            //float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth * angulation.x);
+            //float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth * angulation.y);
+            //float z = Mathf.Cos(inclination);
 
-            Vector3 position = new Vector3(x, y, 0) * scale;
 
-            if (positionList.Count < pointsAmount)
+            Vector3 position = new Vector3(x, y, 0) * indivisualScale * scale;
+            position.x += offset.x;
+            position.y += offset.y;
+
+
+            AddPosition(i, position);
+
+        }
+    }
+
+    public void AddPosition(int i, Vector3 position)
+    {
+        if (positionList.Count < pointsAmount)
+        {
+            if ((i + highlightOffset) % highlight == 0)
             {
-                if ((i + highlightOffset) % highlight == 0)
-                {
-                    positionList.Add(position);
-                }
+                positionList.Add(position);
             }
+        }
+    }
+
+    public void CreateSimpleCurve()
+    {
+        for (int i = less; i < greater; i++)
+        {
+
+            float t = i * multiplier.x;// * ((360f * multiplier.x) / (pointsAmount - 1f));
+
+
+
+            float x = radius.x * (t * t - 3);
+            float y = radius.y * (2 * t + 1);
+
+            float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
+            float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
+
+            x = u;
+            y = v;
+
+
+            Vector3 position = new Vector3(x, y, 0) * indivisualScale * scale;
+            position.x += offset.x;
+            position.y += offset.y;
+
+            AddPosition(i, position);
 
 
 
         }
     }
 
+    public void CreateOndulatedCurve()
+    {
+        for (int i = less; i < greater; i++)
+        {
+            float t = i * ((360f * multiplier.x) / (pointsAmount - 1f));
+
+
+            float x = radius.x * Mathf.Cos(t * angulation.x * Mathf.Deg2Rad) + (1f / 360f) * t;
+            float y = radius.y * Mathf.Sin(t * angulation.y * Mathf.Deg2Rad);
+
+            float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
+            float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
+
+            x = u;
+            y = v;
+
+            Vector3 position = new Vector3(x, y, 0) * indivisualScale * scale;
+
+            position.x += offset.x;
+            position.y += offset.y;
+
+            AddPosition(i, position);
+
+
+
+        }
+    }
 
     public void CreateBezierCurve()
     {
@@ -140,6 +213,15 @@ public class Path : ScriptableObject
         UpdatePoints();
         //MovePoints();
 
+        if (less < 0 && greater - less > pointsAmount)
+            greater = pointsAmount + less;
+        else if (less >= 0 && greater - less > pointsAmount)
+            greater = pointsAmount + less;
+        //if (less + greater < pointsAmount)
+        //less = greater - pointsAmount;
+
+        //if (greater + less > pointsAmount)
+        // pointsAmount = greater + less;
     }
 
 
@@ -149,10 +231,12 @@ public class Path : ScriptableObject
     public void UpdatePoints()
     {
         positionList.Clear();
-        if (curveType == CurveType.Parametric)
-            CreateParametricCurve();
-        if (curveType == CurveType.Bezier)
-            CreateBezierCurve();
+        if (curveType == CurveType.Simple)
+            CreateSimpleCurve();
+        else if (curveType == CurveType.Ondulated)
+            CreateOndulatedCurve();
+        else if (curveType == CurveType.Spiral)
+            CreateSpiralCurve();
 
     }
 
