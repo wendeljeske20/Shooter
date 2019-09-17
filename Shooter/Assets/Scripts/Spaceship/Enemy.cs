@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Enemy : Spaceship
 {
-
+    public Weapon weapon;
     public Path path;
+
+    public GameObject target;
 
     [HideInInspector] public Vector3 spawnPosition;
     public int currentPathIndex = 0;
@@ -31,11 +33,12 @@ public class Enemy : Spaceship
 
     }
 
-    private void Update()
+    protected void Update()
     {
 
         FollowPath();
 
+       
 
 
     }

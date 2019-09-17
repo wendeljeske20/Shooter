@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public List<Wave> waveList = new List<Wave>();
-
+    public Player player;
     void Update()
     {
         for (int i = 0; i < waveList.Count; i++)
@@ -30,5 +30,6 @@ public class Spawner : MonoBehaviour
         enemy.spawnPosition = spawnPosition;
         enemy.path = wave.path;
         enemy.moveSpeed = wave.enemyMoveSpeed;
+        enemy.target = player.gameObject;
     }
 }

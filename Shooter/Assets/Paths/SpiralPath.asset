@@ -22,7 +22,7 @@ MonoBehaviour:
   greater: 101
   rotationAngle: 0
   radius: {x: 1, y: 1}
-  angulation: {x: 1, y: 1}
+  frequence: {x: 1, y: 1}
   multiplier: {x: 1, y: 1}
   offset: {x: 0, y: 0.52}
   highlight: 1

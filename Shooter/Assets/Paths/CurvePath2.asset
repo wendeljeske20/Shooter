@@ -17,12 +17,12 @@ MonoBehaviour:
   turnFraction: 51.03
   scale: 1
   indivisualScale: {x: 1, y: 1}
-  pow: 1
+  pow: 3
   less: -8
   greater: 9
   rotationAngle: 0
   radius: {x: 2, y: 0.02}
-  angulation: {x: 1, y: 1}
+  frequence: {x: 1, y: 1}
   multiplier: {x: 1, y: 1}
   offset: {x: 0, y: 0}
   highlight: 1

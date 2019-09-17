@@ -43,8 +43,8 @@ public class PathManager : MonoBehaviour
 
         LineRenderer line = GetComponent<LineRenderer>();
         line.enabled = true;
-        line.startWidth = 0.1f;
-        line.endWidth = 0.1f;
+        line.startWidth = 0.05f;
+        line.endWidth = 0.05f;
         line.positionCount = path.positionList.Count;
         line.SetPositions(path.positionList.ToArray());
     }
@@ -60,8 +60,6 @@ public class PathManager : MonoBehaviour
             {
                 Gizmos.color = highlightColor;
             }
-
-
 
             Gizmos.DrawSphere(path.positionList[i], 0.1f);
         }
@@ -82,9 +80,11 @@ public class PathManager : MonoBehaviour
     {
         if (selectedPathIndex >= pathList.Count)
             return;
-            
+
         if (drawLines && pathList[selectedPathIndex].positionList.Count > 1)
+        {
             DrawPathLines(pathList[selectedPathIndex]);
+        }
         else
         {
             LineRenderer line = GetComponent<LineRenderer>();

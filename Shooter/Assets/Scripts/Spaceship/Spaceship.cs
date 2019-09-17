@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spaceship : MonoBehaviour
 {
 
-    public float moveSpeed;
+    public float moveSpeed = 5f;
    
 
 }

@@ -27,7 +27,7 @@ public class Path : ScriptableObject
 
     public Vector2 radius = Vector2.one;
 
-    public Vector2 angulation = Vector2.one;
+    public Vector2 frequence = Vector2.one;
 
     public Vector2 multiplier = Vector2.one;
     public Vector2 offset = Vector2.zero;
@@ -41,14 +41,19 @@ public class Path : ScriptableObject
 
 
 
-
-
-
-
-    private void Start()
+    public void AddPosition(int i, Vector3 position)
     {
-        //CreateParametricCurve();
+        if (positionList.Count < pointsAmount)
+        {
+            if ((i + highlightOffset) % highlight == 0)
+            {
+                positionList.Add(position);
+            }
+        }
     }
+
+    public Vector3 StartPosition { get { return positionList[0]; } }
+    public Vector3 EndPosition { get { return positionList[positionList.Count - 1]; } }
 
     public void CreateSpiralCurve()
     {
@@ -59,8 +64,8 @@ public class Path : ScriptableObject
             //float inclination = Mathf.Acos(1 - 2 * t);
             float azimuth = 2 * Mathf.PI * (turnFraction / 1000f) * i;
 
-            float x = radius.x * t * Mathf.Cos(azimuth * angulation.x);
-            float y = radius.y * t * Mathf.Sin(azimuth * angulation.y);
+            float x = radius.x * t * Mathf.Cos(azimuth * frequence.x);
+            float y = radius.y * t * Mathf.Sin(azimuth * frequence.y);
 
             //float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth * angulation.x);
             //float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth * angulation.y);
@@ -77,21 +82,9 @@ public class Path : ScriptableObject
         }
     }
 
-    public void AddPosition(int i, Vector3 position)
-    {
-        if (positionList.Count < pointsAmount)
-        {
-            if ((i + highlightOffset) % highlight == 0)
-            {
-                positionList.Add(position);
-            }
-        }
-    }
 
-    public Vector3 StartPosition { get { return positionList[0]; } }
-    public Vector3 EndPosition { get { return positionList[positionList.Count - 1]; } }
 
-    
+
 
     public void CreateSimpleCurve()
     {
@@ -102,8 +95,8 @@ public class Path : ScriptableObject
 
 
 
-            float x = radius.x * (t * t - 3);
-            float y = radius.y * (2 * t + 1);
+            float x = radius.x * t * t;
+            float y = radius.y * t;
 
             float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
             float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
@@ -133,7 +126,7 @@ public class Path : ScriptableObject
 
 
             float x = radius.x * t;
-            float y = radius.y * t * t * t;
+            float y = radius.y * Mathf.Pow(t, pow);
 
             float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
             float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
@@ -160,8 +153,8 @@ public class Path : ScriptableObject
             float t = i * ((360f * multiplier.x) / (pointsAmount - 1f));
 
 
-            float x = radius.x * Mathf.Cos(t * angulation.x * Mathf.Deg2Rad) + (1f / 360f) * t;
-            float y = radius.y * Mathf.Sin(t * angulation.y * Mathf.Deg2Rad);
+            float x = radius.x * Mathf.Cos(t * frequence.x * Mathf.Deg2Rad) + (1f / 360f) * t;
+            float y = radius.y * Mathf.Sin(t * frequence.y * Mathf.Deg2Rad);
 
             float u = x * Mathf.Cos(rotationAngle * Mathf.Deg2Rad) - y * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
             float v = x * Mathf.Sin(rotationAngle * Mathf.Deg2Rad) + y * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);

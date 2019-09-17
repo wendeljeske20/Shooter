@@ -12,6 +12,7 @@ public class Wave : MonoBehaviour
     public SpawnPosition spawnPosition;
     //public List<Enemy> enemyList = new List<Enemy>();
     public Path path;
+    public float startTime, endTime;
     public float spawnInterval;
     public float enemyMoveSpeed;
     public Enemy enemyPrefab;
@@ -25,11 +26,15 @@ public class Wave : MonoBehaviour
     {
         nextSpawnInterval += Time.deltaTime;
 
-        if (nextSpawnInterval >= spawnInterval)
+        if (Time.time > startTime && Time.time < endTime)
         {
-            canSpawn = true;
-            nextSpawnInterval = 0;
+            if (nextSpawnInterval >= spawnInterval)
+            {
+                canSpawn = true;
+                nextSpawnInterval = 0;
+            }
         }
+
     }
 
 
