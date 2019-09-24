@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curveType: 0
   pointsAmount: 17
-  turnFraction: 51.03
+  turnFraction: 50.94
   scale: 0.2
   indivisualScale: {x: 1, y: 1}
   pow: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
   rotationAngle: 0
   radius: {x: 0.29, y: 6}
   frequence: {x: 1, y: 1}
-  multiplier: {x: 1, y: 1}
+  multiplier: 1
   offset: {x: 11.69, y: -0.1}
   highlight: 1
   highlightOffset: 0

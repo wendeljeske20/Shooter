@@ -9,8 +9,7 @@ public class PathManager : MonoBehaviour
 
     float nextTime;
 
-    //public float last1 = 1, last2 = 1, current = 2;
-
+  
     public bool drawLines, drawPoints;
 
     public Color defaultColor;
@@ -19,34 +18,16 @@ public class PathManager : MonoBehaviour
     public List<Path> pathList = new List<Path>();
     [Range(0, 10)] public int selectedPathIndex;
 
-
-    // private void OnValidate() {
-    //      if (selectedPathIndex >= pathList.Count)
-    //         selectedPathIndex = pathList.Count;
-    // }
-
-    private void Update()
+    void DrawPathLines()
     {
-
-        // turnFraction += Time.deltaTime / 10;
-        //if (Time.time - interval >= interval)
+        for (int i = 0; i < pathList.Count; i++)
         {
-            //Debug.Log("teste");
+            Path path = pathList[i];
+            for (int j = 0; j < path.positionList.Count - 1; j++)
+            {
+                Debug.DrawLine(path.positionList[j], path.positionList[j + 1], Color.blue);
+            }
         }
-        // Path selectedPath = pathList[selectedPathIndex];
-        // selectedPath.MovePoints();
-
-    }
-
-    void DrawPathLines(Path path)
-    {
-
-        LineRenderer line = GetComponent<LineRenderer>();
-        line.enabled = true;
-        line.startWidth = 0.05f;
-        line.endWidth = 0.05f;
-        line.positionCount = path.positionList.Count;
-        line.SetPositions(path.positionList.ToArray());
     }
 
     void DrawPathPoints(Path path)
@@ -65,31 +46,18 @@ public class PathManager : MonoBehaviour
         }
     }
 
-    void DrawControlPoints(Path path)
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(path.pointA, 0.1f);
-        Gizmos.DrawSphere(path.pointB, 0.1f);
-        Gizmos.DrawSphere(path.pointC, 0.1f);
-        Gizmos.DrawSphere(path.pointD, 0.1f);
-        Gizmos.DrawSphere(path.pointE, 0.1f);
-        Gizmos.DrawSphere(path.pointF, 0.1f);
-    }
 
     private void OnDrawGizmos()
     {
         if (selectedPathIndex >= pathList.Count)
             return;
 
-        if (drawLines && pathList[selectedPathIndex].positionList.Count > 1)
+        if (drawLines)
         {
-            DrawPathLines(pathList[selectedPathIndex]);
+
+            DrawPathLines();
         }
-        else
-        {
-            LineRenderer line = GetComponent<LineRenderer>();
-            line.enabled = false;
-        }
+
 
 
         for (int i = 0; i < pathList.Count; i++)
@@ -102,10 +70,6 @@ public class PathManager : MonoBehaviour
             if (drawPoints)
                 DrawPathPoints(selectedPath);
 
-            // if (selectedPath.curveType == Path.CurveType.Bezier)
-            // {
-            //     DrawControlPoints(selectedPath);
-            // }
 
         }
 

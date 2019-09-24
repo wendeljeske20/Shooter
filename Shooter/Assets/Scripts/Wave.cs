@@ -21,6 +21,10 @@ public class Wave : MonoBehaviour
 
     public Vector3 exitDirection;
 
+    void Start()
+    {
+        nextSpawnInterval = spawnInterval;
+    }
 
     void Update()
     {

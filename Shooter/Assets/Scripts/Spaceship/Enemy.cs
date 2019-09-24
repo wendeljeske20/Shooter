@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Spaceship
 {
-    public Weapon weapon;
+
     public Path path;
 
     public GameObject target;
@@ -16,31 +16,48 @@ public class Enemy : Spaceship
 
     public Vector3 exitDirection;
 
+    AudioSyncer audioSyncer;
+
+    public float pathPosition;
+
     private void Start()
     {
-
-        exitDirection = (path.positionList[path.positionList.Count - 2] - path.positionList[path.positionList.Count - 1]).normalized;
-
-        if (spawnPosition == path.EndPosition)
+        audioSyncer = GetComponent<AudioSyncer>();
+        if (path)
         {
-            moveDirection = -1;
-            currentPathIndex = path.positionList.Count - 1;
-            exitDirection = (path.positionList[1] - path.positionList[0]).normalized;
+            exitDirection = (path.positionList[path.positionList.Count - 2] - path.positionList[path.positionList.Count - 1]).normalized;
+
+            if (spawnPosition == path.EndPosition)
+            {
+                moveDirection = -1;
+                //currentPathIndex = path.positionList.Count - 1;
+                exitDirection = (path.positionList[1] - path.positionList[0]).normalized;
+            }
+
+
+            pathPosition = path.less;
         }
 
-
-
-
+        target = GameObject.Find("Player");
     }
 
     protected void Update()
     {
+        if (path)
+        {
+            if (pathPosition >= path.less)// && pathPosition <= path.greater)
+                pathPosition += Time.deltaTime * moveSpeed * moveDirection;
 
-        FollowPath();
-
-       
+            FollowPath();
 
 
+        }
+
+        if (audioSyncer.m_isBeat)
+        {
+            Shoot((target.transform.position - transform.position).normalized);
+            audioSyncer.m_isBeat = false;
+        }
     }
 
 
@@ -49,17 +66,18 @@ public class Enemy : Spaceship
     {
         Vector3 targetPosition = transform.position - exitDirection;
 
-        if (currentPathIndex >= 0 && currentPathIndex < path.positionList.Count)
-            targetPosition = path.positionList[currentPathIndex];
+        //if (currentPathIndex >= 0 && currentPathIndex < path.positionList.Count)
+        // targetPosition = path.CreateSimpleCurve(currentTime);// path.positionList[currentPathIndex];
 
-
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
+        if (pathPosition >= path.less && pathPosition <= path.greater)
+            transform.position = path.CreateCurve(pathPosition);
+        //else
+        //Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
 
         if ((transform.position - targetPosition).sqrMagnitude < 0.05)
         {
-            currentPathIndex += moveDirection;
+            //currentPathIndex += moveDirection;
         }
 
 

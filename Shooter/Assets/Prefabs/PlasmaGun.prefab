@@ -46,7 +46,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7148947663025754416, guid: 2acef9c6c81f90b449058786b90d95a5,
     type: 3}
   projectileSpeed: 20
-  attackRange: 20
-  attackInterval: 0.2
+  attackRange: 30
+  attackInterval: 0
   damage: 10
   canShoot: 0

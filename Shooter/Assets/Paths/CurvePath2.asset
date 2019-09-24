@@ -23,7 +23,7 @@ MonoBehaviour:
   rotationAngle: 0
   radius: {x: 2, y: 0.02}
   frequence: {x: 1, y: 1}
-  multiplier: {x: 1, y: 1}
+  multiplier: 1
   offset: {x: 0, y: 0}
   highlight: 1
   highlightOffset: 0

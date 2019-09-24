@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Spaceship
 {
-    public Weapon weapon;
+
     void Start()
     {
 
@@ -16,9 +16,10 @@ public class Player : Spaceship
         Move();
         LookAtMouse();
 
-        if (Input.GetMouseButton(0) && weapon.canShoot)
+        if (Input.GetMouseButton(0))
         {
-            weapon.Shoot(transform.right);
+            Shoot(transform.right);
+
         }
     }
 

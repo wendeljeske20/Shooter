@@ -8,7 +8,7 @@ public class StarFall : Enemy
     {
         base.Update();
         
-        if (weapon.canShoot)
-            weapon.Shoot((target.transform.position - transform.position).normalized);
+        //if (weapon.canShoot)
+          //  weapon.Shoot((target.transform.position - transform.position).normalized);
     }
 }
