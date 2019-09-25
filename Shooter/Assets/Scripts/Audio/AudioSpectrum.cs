@@ -33,12 +33,36 @@ public class AudioSpectrum : MonoBehaviour
     AudioSource audioSource;
 
     public Text musicTimeText;
+
+    // private float[] freqData;
+    // private int nSamples = 1024;
+    // private float fMax;
+
+    // float BandVol(float fLow, float fHigh)
+    // {
+
+    //     fLow = Mathf.Clamp(fLow, 20, fMax); // limit low...
+    //     fHigh = Mathf.Clamp(fHigh, fLow, fMax); // and high frequencies
+    //                                             // get spectrum
+    //     audioSource.GetSpectrumData(freqData, 0, FFTWindow.BlackmanHarris);
+    //     int n1 = (int)Mathf.Floor(fLow * nSamples / fMax);
+    //     int n2 = (int)Mathf.Floor(fHigh * nSamples / fMax);
+    //     float sum = 0;
+    //     // average the volumes of frequencies fLow to fHigh
+    //     for (int i = n1; i <= n2; i++)
+    //     {
+    //         sum += freqData[i];
+    //     }
+    //     return sum / (n2 - n1 + 1);
+    // }
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         //line = GameObject.Find("Line");
 
-
+        //freqData = new float[nSamples];
+        //fMax = AudioSettings.outputSampleRate / 2;
 
     }
     private void Update()
@@ -144,11 +168,11 @@ public class AudioSpectrum : MonoBehaviour
                 float scaleY = 0;
                 if (useBuffer)
                 {
-                    scaleY = audioBands[i] * maxScale;
+                    scaleY = audioBandBuffers[i] * maxScale;
                 }
                 else
                 {
-                    scaleY = audioBandBuffers[i] * maxScale;
+                    scaleY = audioBands[i] * maxScale;
                 }
 
                 if (scaleY >= 0)
@@ -163,7 +187,7 @@ public class AudioSpectrum : MonoBehaviour
     }
     void GetSpectrumAudioSource()
     {
-        audioSource.GetSpectrumData(samples, 0, FFTWindow.Triangle);
+        audioSource.GetSpectrumData(samples, 0, FFTWindow.Rectangular);
     }
 
 

@@ -937,7 +937,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6de0049b6833ae34fb79b660881ac789, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a883fe8b354433d49bdcc1b02dddf267, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.069
   m_Pitch: 1
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   - {fileID: 396254502}
   - {fileID: 1939720442}
   maxScale: 10
-  useBuffer: 1
+  useBuffer: 0
   subAudioClips:
   - {fileID: 0}
   - {fileID: 0}
@@ -1097,8 +1097,8 @@ MonoBehaviour:
     bandIndex: 2
     bias: 0.3
   - startTime: 90
-    bandIndex: 6
-    bias: 0.358
+    bandIndex: 0
+    bias: 0.708
   - startTime: 120
     bandIndex: 1
     bias: 0.5
@@ -1824,6 +1824,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaGun (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: burstInterval
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: shotsAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: attackInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: attackRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: projectileSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7068920770002303978, guid: 95d3c476e35314349b49d848dc64e276,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1878,31 +1903,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: burstInterval
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: shotsAmount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: attackInterval
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: attackRange
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: projectileSpeed
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95d3c476e35314349b49d848dc64e276, type: 3}
@@ -2854,6 +2854,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaGun
       objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: burstInterval
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: shotsAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: attackInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: attackRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
+        type: 3}
+      propertyPath: projectileSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7068920770002303978, guid: 95d3c476e35314349b49d848dc64e276,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2908,31 +2933,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: burstInterval
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: shotsAmount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: attackInterval
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: attackRange
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068920770002303977, guid: 95d3c476e35314349b49d848dc64e276,
-        type: 3}
-      propertyPath: projectileSpeed
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95d3c476e35314349b49d848dc64e276, type: 3}
