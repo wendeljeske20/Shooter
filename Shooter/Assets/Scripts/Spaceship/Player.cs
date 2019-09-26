@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : Spaceship
 {
-
+    AudioSyncer audioSyncer;
     void Start()
     {
-
+        audioSyncer = GetComponent<AudioSyncer>();
     }
 
     // Update is called once per frame
@@ -16,9 +16,14 @@ public class Player : Spaceship
         Move();
         LookAtMouse();
 
-        if (Input.GetMouseButton(0))
+        // if (Input.GetMouseButton(0))
         {
-            Shoot(transform.right);
+            if (audioSyncer.isBeat)
+            {
+                Shoot(transform.right);
+                audioSyncer.isBeat = false;
+            }
+
 
         }
     }

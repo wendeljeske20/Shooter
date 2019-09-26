@@ -17,7 +17,7 @@ public class SubAudioClip : MonoBehaviour
         public float bias = 0.5f;
     }
 
-    public Info[] info = new Info[8];
+    [HideInInspector] public Info[] infos = new Info[12];
 
 
 
@@ -28,7 +28,9 @@ public class SubAudioClip : MonoBehaviour
     }
     private void Update()
     {
-        if (currentClipIndex < info.Length - 1 && audioSource.time > info[currentClipIndex + 1].startTime)
+
+
+        if (currentClipIndex < infos.Length - 1 && audioSource.time > infos[currentClipIndex + 1].startTime && infos[currentClipIndex + 1].startTime != 0)
         {
 
             currentClipIndex++;
@@ -46,18 +48,27 @@ public class SubAudioClip : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i].GetComponent<AudioSyncer>().bias = info[currentClipIndex].bias;
-            enemies[i].GetComponent<AudioSyncer>().bandIndex = info[currentClipIndex].bandIndex;
+            enemies[i].GetComponent<AudioSyncer>().bias = infos[currentClipIndex].bias;
+            enemies[i].GetComponent<AudioSyncer>().bandIndex = infos[currentClipIndex].bandIndex;
         }
 
     }
+
+
     public void PlaySubClip(int i)
     {
-        if (info[i].startTime < audioSource.clip.length)
+        if (infos[i].startTime < audioSource.clip.length)
         {
-            audioSource.time = info[i].startTime;
+            audioSource.time = infos[i].startTime;
 
             currentClipIndex = i;
+            for (int j = 0; j < 8; j++)
+            {
+                AudioSpectrum.position2DList[j].Clear();
+                AudioSpectrum.timer = 0;
+                AudioSpectrum.canDrawSpectrum = true;
+            }
+
             audioSource.Play();
         }
 
@@ -87,7 +98,7 @@ public class SubAudioClipEditor : Editor
         SubAudioClip subAudioClip = (SubAudioClip)target;
 
 
-        for (int i = 0; i < subAudioClip.info.Length; i++)
+        for (int i = 0; i < subAudioClip.infos.Length; i++)
         {
             Rect rect = EditorGUILayout.GetControlRect(false, 2);
 
@@ -113,9 +124,9 @@ public class SubAudioClipEditor : Editor
 
 
 
-            if (subAudioClip.info != null)
+            if (subAudioClip.infos != null)
             {
-                subAudioClip.info[i].startTime = EditorGUILayout.FloatField("Start Time", subAudioClip.info[i].startTime);
+                subAudioClip.infos[i].startTime = EditorGUILayout.FloatField("Start Time", subAudioClip.infos[i].startTime);
             }
 
 
@@ -124,10 +135,10 @@ public class SubAudioClipEditor : Editor
 
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label("Band");
-            subAudioClip.info[i].bandIndex = EditorGUILayout.IntSlider(subAudioClip.info[i].bandIndex, 0, 7);
+            subAudioClip.infos[i].bandIndex = EditorGUILayout.IntSlider(subAudioClip.infos[i].bandIndex, 0, 7);
 
             GUILayout.Label("Bias");
-            subAudioClip.info[i].bias = EditorGUILayout.Slider(subAudioClip.info[i].bias, 0, 1);
+            subAudioClip.infos[i].bias = EditorGUILayout.Slider(subAudioClip.infos[i].bias, 0, 1);
             EditorGUILayout.EndHorizontal();
         }
 

@@ -53,10 +53,10 @@ public class Enemy : Spaceship
 
         }
 
-        if (audioSyncer.m_isBeat)
+        if (audioSyncer.isBeat)
         {
             Shoot((target.transform.position - transform.position).normalized);
-            audioSyncer.m_isBeat = false;
+            audioSyncer.isBeat = false;
         }
     }
 
