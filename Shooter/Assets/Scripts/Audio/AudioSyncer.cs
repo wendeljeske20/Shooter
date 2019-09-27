@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class AudioSyncer : MonoBehaviour
 {
-    public GameObject linePrefab;
+    //public GameObject linePrefab;
     //GameObject line;
 
-    [Range(0.05f, 1)] public float bias;
+
+    public SubClip subClip;
+    public int subClipIndex;
+    //[Range(0.05f, 1)] public float bias;
     public float timeStep;
     //public float timeToBeat;
     //public float restSmoothTime;
@@ -17,7 +20,7 @@ public class AudioSyncer : MonoBehaviour
     float maxAudioValue;
     float audioValue;
     float timer;
-    public int bandIndex;
+    //public int bandIndex;
     public bool isBeat;
     public virtual void OnBeat()
     {
@@ -26,12 +29,6 @@ public class AudioSyncer : MonoBehaviour
     }
 
 
-    void Start()
-    {
-       // line = Instantiate(linePrefab, new Vector3(-25, 4.3f, -2f), Quaternion.identity);
-
-    }
-
 
     private void Update()
     {
@@ -39,20 +36,19 @@ public class AudioSyncer : MonoBehaviour
     }
     public virtual void OnUpdate()
     {
-        //if (line)
-           // line.transform.position = new Vector3(line.transform.position.x, bias * AudioSpectrum.GetMaxScale, line.transform.position.z);
 
-                previousAudioValue = audioValue;
+        previousAudioValue = audioValue;
         if (audioValue < previousAudioValue)
             maxAudioValue = previousAudioValue;
         // update audio value
-    
+
 
         if (AudioSpectrum.GetUseBuffer)
-            audioValue = AudioSpectrum.bandBuffers[bandIndex];
+            audioValue = AudioSpectrum.bandBuffers[subClip.bandIndex];
         else
-            audioValue = AudioSpectrum.freqBands[bandIndex];
+            audioValue = AudioSpectrum.freqBands[subClip.bandIndex];
 
+        float bias = subClip.bias * AudioSpectrum.GetMaxScale;
         // if audio value went below the bias during this frame
         if (previousAudioValue > bias &&
             audioValue <= bias)

@@ -9,15 +9,14 @@ public class MissileLauncher : Weapon
 
 
 
-    public override void Shoot(GameObject target)
+    public override void Shoot()
     {
-        base.Shoot(target);
+        base.Shoot();
 
 
-        Missile missile = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Missile>();
-        missile.target = target;
+        Missile missile = Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<Missile>();
+        //missile.targetDirection = transform.right;
         missile.moveSpeed = projectileSpeed;
-        missile.attackRange = attackRange;
         missile.damage = damage;
     }
 }

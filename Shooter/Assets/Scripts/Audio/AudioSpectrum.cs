@@ -9,7 +9,7 @@ public class AudioSpectrum : MonoBehaviour
     public GameObject[] cubes;
     //public GameObject line;
 
-    public int maxScale = 10;
+    public int scale = 10;
     public static int GetMaxScale;
     public bool useBuffer;
     public static bool GetUseBuffer;
@@ -31,7 +31,7 @@ public class AudioSpectrum : MonoBehaviour
     public GameObject spectrumGO;
 
 
-    SubAudioClip[] subAudioClips;
+    AudioManager audioManager;
     //public float interval = 0.1f;
     // public float nextInterval;
     public static List<List<float>> position2DList = new List<List<float>>(8);
@@ -70,7 +70,7 @@ public class AudioSpectrum : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        subAudioClips = GameObject.FindObjectsOfType<SubAudioClip>();
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
         //line = GameObject.Find("Line");
 
         //freqData = new float[nSamples];
@@ -83,8 +83,9 @@ public class AudioSpectrum : MonoBehaviour
     }
     private void Update()
     {
+
         musicTimeText.text = audioSource.time.ToString();
-        GetMaxScale = maxScale;
+        GetMaxScale = scale;
         GetUseBuffer = useBuffer;
 
         GetSpectrumAudioSource();
@@ -94,10 +95,16 @@ public class AudioSpectrum : MonoBehaviour
         //GetAmplitude();
         UpdateCubes();
 
-        timer++;
-        //nextInterval += Time.deltaTime;
+        if (!audioManager.isPaused)
+        {
+            timer++;
+            //nextInterval += Time.deltaTime;
+
+        }
+
         if (canDrawSpectrum)
             DrawSpectrum();
+
         // if (samples != null && samples.Length > 0)
         // {
         //     if (useBuffer)
@@ -113,38 +120,43 @@ public class AudioSpectrum : MonoBehaviour
     {
         Vector3 drawPosition = transform.position;
 
-        for (int i = 0; i < subAudioClips.Length; i++)
+        float offsetX = -timer;
+
+
+        //for (int i = 0; i < audioManager.subClips.Length; i++)
         {
-            for (int j = 0; j < subAudioClips[i].infos.Length; j++)
-            {
-                float bias = subAudioClips[i].infos[j].bias * maxScale;
-                float index = subAudioClips[i].infos[j].bandIndex;
+            int i = audioManager.currentClipIndex;
+            float bias = audioManager.subClips[i].bias * scale;
+            float bandIndex = audioManager.subClips[i].bandIndex;
 
-                float y = bias - index * maxScale;
+            float y = bias - bandIndex * scale;
 
-                Debug.DrawLine(drawPosition + new Vector3(-graphicLenght, y, 0), drawPosition + new Vector3(0, y, 0), Color.magenta);
+            Debug.DrawLine(drawPosition + new Vector3(-graphicLenght, y, 0), drawPosition + new Vector3(0, y, 0), Color.green);
 
-            }
         }
+
         for (int i = 0; i < 8; i++)
         {
-            Debug.DrawLine(new Vector3(-timer, maxScale * -i, 0) + drawPosition, new Vector3(0, maxScale * -i, 0) + drawPosition, Color.grey);
+            Debug.DrawLine(new Vector3(offsetX, scale * -i, 0) + drawPosition, new Vector3(0, scale * -i, 0) + drawPosition, Color.white);
 
             //if (nextInterval >= interval)
             {
+                if (!audioManager.isPaused)
+                {
+                    float y = useBuffer ? freqBands[i] : bandBuffers[i];
+                    position2DList[i].Add(y);
+                }
 
-                position2DList[i].Add(useBuffer ? freqBands[i] : bandBuffers[i]);
                 //    nextInterval = 0;
             }
-            float offsetX = -timer;
 
             for (int j = 1; j < position2DList[i].Count; j++)
             {
 
                 //Debug.DrawLine(drawPosition + new Vector3(-100,  -i * maxScale, 0), drawPosition + new Vector3(0, -i * maxScale, 0), Color.white);
-                Vector3 pointA = drawPosition + new Vector3(j - 1 + offsetX, position2DList[i][j - 1] * maxScale - i * maxScale, 0);
-                Vector3 pointB = drawPosition + new Vector3(j + offsetX, position2DList[i][j] * maxScale - i * maxScale, 0);
-                Debug.DrawLine(pointA, pointB, Color.white);
+                Vector3 pointA = drawPosition + new Vector3(j - 1 + offsetX, position2DList[i][j - 1] - i * scale, 0);
+                Vector3 pointB = drawPosition + new Vector3(j + offsetX, position2DList[i][j] - i * scale, 0);
+                Debug.DrawLine(pointA, pointB, Color.gray);
 
                 if (j > graphicLenght)
                 {
@@ -241,7 +253,7 @@ public class AudioSpectrum : MonoBehaviour
 
 
             if (scaleY >= 0)
-                cubes[i].transform.localScale = new Vector3(0.5f, scaleY * maxScale, 0.5f);
+                cubes[i].transform.localScale = new Vector3(0.5f, scaleY, 0.5f);
 
 
 

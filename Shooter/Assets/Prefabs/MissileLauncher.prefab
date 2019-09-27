@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2574018606032864183}
   - component: {fileID: 6102315265489435030}
+  - component: {fileID: 1581797616}
   m_Layer: 0
   m_Name: MissileLauncher
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: Weapon
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -43,10 +44,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779477bd0e0486345bb84738889dec14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7148947663025754416, guid: 724efb746d43eb147ae756e4ba82528e,
+  projectilePrefab: {fileID: 8401513979377283079, guid: ae890034b357a1941bb08c2c7efdb148,
     type: 3}
-  projectileSpeed: 5
+  projectileSpeed: 7
   attackRange: 20
-  attackInterval: 0.5
   damage: 20
   canShoot: 0
+--- !u!114 &1581797616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2574018606032864182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eab0cb0d3f05c94ba58bf1d823cae2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subClip:
+    startTime: 0
+    bandIndex: 0
+    bias: 0.5
+  subClipIndex: 0
+  timeStep: 0
+  isBeat: 0

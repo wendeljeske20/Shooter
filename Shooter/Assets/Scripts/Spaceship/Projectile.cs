@@ -5,14 +5,18 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
+
     public float moveSpeed;
-    public float attackRange = 10;
+
     public int damage;
 
     Vector3 spawnPosition;
 
+    public Vector3 targetDirection;
+
     public void Start()
     {
+
         spawnPosition = transform.position;
     }
 
@@ -20,12 +24,7 @@ public class Projectile : MonoBehaviour
     {
         Move();
 
-        float distance = (transform.position - spawnPosition).sqrMagnitude;
 
-        if (distance >= attackRange * attackRange)
-        {
-            Destroy(gameObject);
-        }
 
     }
 
@@ -34,8 +33,13 @@ public class Projectile : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
 
+    }
+    protected void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ViewCollider"))
+            Destroy(gameObject);
     }
 }

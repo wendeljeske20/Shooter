@@ -7,18 +7,17 @@ public class PlasmaGun : Weapon
 
 
 
-    public override void Shoot(Vector3 direction)
+    public override void Shoot()
     {
-        base.Shoot(direction);
+        base.Shoot();
 
 
 
 
 
-        Plasma plasma = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Plasma>();
-        plasma.targetDirection = direction;
+        Plasma plasma = Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<Plasma>();
+        //plasma.targetDirection = transform.right;
         plasma.moveSpeed = projectileSpeed;
-        plasma.attackRange = attackRange;
         plasma.damage = damage;
     }
 

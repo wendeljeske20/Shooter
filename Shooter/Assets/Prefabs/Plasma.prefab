@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7148947663025754416}
   - component: {fileID: 7148947663025754447}
   - component: {fileID: 7148947663025754446}
+  - component: {fileID: 450978894029608079}
   m_Layer: 0
   m_Name: Plasma
   m_TagString: Untagged
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  attackRange: 10
   damage: 0
   targetDirection: {x: 0, y: 0, z: 0}
 --- !u!198 &7148947663025754447
@@ -132,7 +132,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.07
+      scalar: 0.05
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4734,7 +4734,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -4770,3 +4769,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!65 &450978894029608079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7148947663025754445}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4, z: 0.4}
+  m_Center: {x: 0, y: 0, z: 0}

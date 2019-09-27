@@ -12,14 +12,14 @@ public class Wave : MonoBehaviour
     public SpawnPosition spawnPosition;
     //public List<Enemy> enemyList = new List<Enemy>();
     public Path path;
-    public float startTime, endTime;
-    public float spawnInterval;
-    public float enemyMoveSpeed;
-    public Enemy enemyPrefab;
+    public float startTime = 0, endTime = 5;
+    public float spawnInterval = 2;
+    public float enemyMoveSpeed = 5;
+    
     float nextSpawnInterval;
-    [HideInInspector] public bool canSpawn;
+    [HideInInspector] public bool canSpawn = true;
 
-    public Vector3 exitDirection;
+    //public Vector3 exitDirection;
 
     void Start()
     {
