@@ -46,8 +46,9 @@ public class Enemy : Spaceship
         target = GameObject.Find("Player");
     }
 
-    protected void Update()
+    protected override void Update()
     {
+        base.Update();
         if (path)
         {
             //if (pathPosition >= path.less && pathPosition <= path.greater)
@@ -58,45 +59,21 @@ public class Enemy : Spaceship
 
 
         }
-        // transform.LookAt(target.transform.position, transform.forward);
 
-        // Vector3 lookPosition = target.transform.position - transform.position;
-        // lookPosition.z = -1;
-        // transform.rotation = Quaternion.LookRotation(lookPosition);
+        if (target)
+            LookAtPosition(target.transform.position);
+        else
+            LookAtPosition(Vector3.zero);
 
-        LookAtTarget();
-        //transform.LookAt(target.transform.position);
+        Shoot();
 
-        //if (audioSyncer.isBeat)
-        {
-            //(target.transform.position - transform.position).normalized
-            Shoot();
-            // audioSyncer.isBeat = false;
-        }
     }
 
-    void LookAtTarget()
+    void LookAtPosition(Vector3 position)
     {
-        //transform.LookAt(target.transform.position);
-        angle = Vector3.SignedAngle(transform.position - target.transform.position, Vector3.right, Vector3.forward);
-        Vector3 eulers = transform.eulerAngles;
-        eulers.z = angle;
-        transform.eulerAngles = eulers;
+        Quaternion targetRotation = Quaternion.LookRotation(position - transform.position, Vector3.forward);
+        transform.rotation = targetRotation;
 
-        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-        // Vector3 lookPos = Vector3.zero;// target.transform.position - transform.position;
-        // //lookPos.z = 0;
-        // Quaternion rotation = Quaternion.LookRotation(lookPos);
-        // transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1);
-
-        // Vector3 angles = transform.rotation.eulerAngles;
-        // angles.z = Vector3.Angle(target.transform.position,transform.position);
-        // transform.rotation = Quaternion.Euler(angles);
-
-        // Vector3 dir = target.transform.position - transform.position;
-        // float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        // transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        // transform.eulerAngles = 
     }
 
 
@@ -131,7 +108,7 @@ public class Enemy : Spaceship
 
     }
 
-    
+
     void OnDestroy()
     {
         Spawner.enemyList.Remove(this);

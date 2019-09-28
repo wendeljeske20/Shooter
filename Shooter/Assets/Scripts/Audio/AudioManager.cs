@@ -7,9 +7,9 @@ using UnityEditor;
 [System.Serializable]
 public class SubClip
 {
-    [HideInInspector] public float startTime;//, endTime;
-    [HideInInspector] public int bandIndex;
-    [HideInInspector] public float bias = 0.5f;
+     public float startTime;//, endTime;
+     public int bandIndex;
+     public float bias = 0.5f;
 }
 
 
@@ -114,8 +114,6 @@ public class AudioManager : MonoBehaviour
 
 
 }
-
-
 
 [CustomEditor(typeof(AudioManager))]
 public class AudioManagerEditor : Editor

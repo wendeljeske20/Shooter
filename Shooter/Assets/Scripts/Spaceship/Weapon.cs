@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
 {
     AudioSyncer audioSyncer;
 
-   
+       public Spaceship.Team team;
     public Projectile projectilePrefab;
     public float projectileSpeed = 10f;
     public float attackRange = 20f;

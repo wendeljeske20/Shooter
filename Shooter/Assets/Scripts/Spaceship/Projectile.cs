@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-
+    public Spaceship.Team team;
     public float moveSpeed;
 
     public int damage;
@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
 
     public Vector3 targetDirection;
 
-    public void Start()
+    protected virtual void Start()
     {
 
         spawnPosition = transform.position;

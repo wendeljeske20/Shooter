@@ -10,11 +10,15 @@ public class Spawner : MonoBehaviour
     public List<Wave> waveList = new List<Wave>();
 
     public static List<Enemy> enemyList = new List<Enemy>();
-    public Player player;
+
+    public static ParticleSystem smallExplosion, bigExplosion;
+    
 
     private void Start()
     {
         audioManager = GameObject.Find("Music").GetComponent<AudioManager>();
+        smallExplosion = Resources.Load<ParticleSystem>("ExplosionSmall");
+        bigExplosion = Resources.Load<ParticleSystem>("ExplosionBig");
     }
     void Update()
     {
@@ -48,7 +52,6 @@ public class Spawner : MonoBehaviour
         enemy.spawnPosition = spawnPosition;
         enemy.path = wave.path;
         enemy.moveSpeed = wave.enemyMoveSpeed;
-        enemy.target = player.gameObject;
 
         for (int i = 0; i < enemy.weapons.Length; i++)
         {

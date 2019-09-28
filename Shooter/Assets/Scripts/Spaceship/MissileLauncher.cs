@@ -15,7 +15,7 @@ public class MissileLauncher : Weapon
 
 
         Missile missile = Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<Missile>();
-        //missile.targetDirection = transform.right;
+        missile.team = team;
         missile.moveSpeed = projectileSpeed;
         missile.damage = damage;
     }
