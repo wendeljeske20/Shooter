@@ -5,16 +5,18 @@ using UnityEngine;
 public class Enemy : Spaceship
 {
 
-    public Path path;
+    [HideInInspector] public Path path;
 
-    public GameObject target;
-    public float angle;
+    [HideInInspector] public GameObject target;
+    //public float angle;
     [HideInInspector] public Vector3 spawnPosition;
-    public int currentPathIndex = 0;
+    //public int currentPathIndex = 0;
 
-    int moveDirection = 1;
+    [HideInInspector] int moveDirection = 1;
 
-    public Vector3 exitDirection;
+    [HideInInspector] public Vector3 exitDirection;
+
+    public float rotationSpeed = 100;
 
     bool reachedEnd;
 
@@ -33,7 +35,6 @@ public class Enemy : Spaceship
             if (spawnPosition == path.EndPosition)
             {
                 moveDirection = -1;
-                Debug.Log("-1");
                 //currentPathIndex = path.positionList.Count - 1;
                 exitDirection = (path.positionList[1] - path.positionList[0]).normalized;
                 pathPosition = path.greater;
@@ -43,7 +44,7 @@ public class Enemy : Spaceship
 
         }
 
-        target = GameObject.Find("Player");
+        target = GameObject.FindObjectOfType<Player>().gameObject;
     }
 
     protected override void Update()
@@ -72,9 +73,11 @@ public class Enemy : Spaceship
     void LookAtPosition(Vector3 position)
     {
         Quaternion targetRotation = Quaternion.LookRotation(position - transform.position, Vector3.forward);
-        transform.rotation = targetRotation;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
     }
+
+    
 
 
     void FollowPath()

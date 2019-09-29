@@ -21,51 +21,23 @@ public class AudioSpectrum : MonoBehaviour
     public static float[] bandBuffers = new float[8];
     float[] bufferDecrease = new float[8];
 
-    float[] freqBandHighests = new float[8];
-    public static float[] audioBands = new float[8];
-    public static float[] audioBandBuffers = new float[8];
+    // float[] freqBandHighests = new float[8];
+    //public static float[] audioBands = new float[8];
+    //public static float[] audioBandBuffers = new float[8];
 
     float amplitude, amplitudeBuffer;
     float amplitudeHighest;
-
     public GameObject spectrumGO;
-
-
     AudioManager audioManager;
     //public float interval = 0.1f;
     // public float nextInterval;
     public static List<List<float>> position2DList = new List<List<float>>(8);
-
     AudioSource audioSource;
-
     public Text musicTimeText;
     public int graphicLenght;
-
     public static float timer;
-
     public static bool canDrawSpectrum;
 
-    // private float[] freqData;
-    // private int nSamples = 1024;
-    // private float fMax;
-
-    // float BandVol(float fLow, float fHigh)
-    // {
-
-    //     fLow = Mathf.Clamp(fLow, 20, fMax); // limit low...
-    //     fHigh = Mathf.Clamp(fHigh, fLow, fMax); // and high frequencies
-    //                                             // get spectrum
-    //     audioSource.GetSpectrumData(freqData, 0, FFTWindow.BlackmanHarris);
-    //     int n1 = (int)Mathf.Floor(fLow * nSamples / fMax);
-    //     int n2 = (int)Mathf.Floor(fHigh * nSamples / fMax);
-    //     float sum = 0;
-    //     // average the volumes of frequencies fLow to fHigh
-    //     for (int i = n1; i <= n2; i++)
-    //     {
-    //         sum += freqData[i];
-    //     }
-    //     return sum / (n2 - n1 + 1);
-    // }
 
     private void Start()
     {
@@ -83,6 +55,8 @@ public class AudioSpectrum : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
 
         musicTimeText.text = audioSource.time.ToString();
         GetMaxScale = scale;
@@ -201,13 +175,13 @@ public class AudioSpectrum : MonoBehaviour
             if (freqBands[i] > bandBuffers[i])
             {
                 bandBuffers[i] = freqBands[i];
-                bufferDecrease[i] = 0.02f;
+                bufferDecrease[i] = 0.05f;
             }
 
             if (freqBands[i] < bandBuffers[i])
             {
                 bandBuffers[i] -= bufferDecrease[i];
-                bufferDecrease[i] *= 1.5f;
+                bufferDecrease[i] *= 1.2f;
             }
         }
     }

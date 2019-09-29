@@ -53,12 +53,8 @@ public class Player : Spaceship
 
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
 
-
         Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.forward);
         transform.rotation = targetRotation;
 
-
-        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }

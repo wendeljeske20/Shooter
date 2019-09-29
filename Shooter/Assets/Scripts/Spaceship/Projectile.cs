@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
 
     Vector3 spawnPosition;
 
-    public Vector3 targetDirection;
+
 
     protected virtual void Start()
     {
@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
         spawnPosition = transform.position;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         Move();
 

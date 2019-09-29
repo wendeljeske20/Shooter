@@ -6,30 +6,34 @@ public class Weapon : MonoBehaviour
 {
     AudioSyncer audioSyncer;
 
-       public Spaceship.Team team;
+    [HideInInspector] public Spaceship.Team team;
     public Projectile projectilePrefab;
     public float projectileSpeed = 10f;
-    public float attackRange = 20f;
-    // public float attackInterval = 0.3f;
-    // float nextAttackInterval;
-    //public float fireRate;
-    public int damage = 10;
+    public int projectileDamage = 10;
 
-    public bool canShoot;
+    [HideInInspector] public bool canShoot;
+    public bool shootWithMusic = true;
+
+    float timer;
 
     private void Start()
     {
         audioSyncer = GetComponent<AudioSyncer>();
     }
-    private void Update()
+    protected virtual void Update()
     {
-
+        timer += Time.deltaTime;
         //nextAttackInterval += Time.deltaTime;
 
-        if (audioSyncer && audioSyncer.isBeat)
+        if (shootWithMusic && audioSyncer.isBeat)
         {
             canShoot = true;
             audioSyncer.isBeat = false;
+        }
+        else if (!shootWithMusic && timer > audioSyncer.timeStep)
+        {
+            timer = 0;
+            canShoot = true;
         }
 
     }

@@ -19,7 +19,7 @@ public class AudioSyncer : MonoBehaviour
     float previousAudioValue;
     float maxAudioValue;
     float audioValue;
-    float timer;
+    [HideInInspector] public float timer;
     //public int bandIndex;
     public bool isBeat;
     public virtual void OnBeat()
@@ -50,8 +50,7 @@ public class AudioSyncer : MonoBehaviour
 
         float bias = subClip.bias * AudioSpectrum.GetMaxScale;
         // if audio value went below the bias during this frame
-        if (previousAudioValue > bias &&
-            audioValue <= bias)
+        if (previousAudioValue > bias && audioValue <= bias)
         {
             // if minimum beat interval is reached
             //if (timer > timeStep)
@@ -59,8 +58,7 @@ public class AudioSyncer : MonoBehaviour
         }
 
         // if audio value went above the bias during this frame
-        if (previousAudioValue <= bias &&
-            audioValue > bias)
+        if (previousAudioValue <= bias && audioValue > bias)
         {
             // if minimum beat interval is reached
             //if (timer > timeStep)

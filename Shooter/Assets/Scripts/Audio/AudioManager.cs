@@ -7,9 +7,9 @@ using UnityEditor;
 [System.Serializable]
 public class SubClip
 {
-     public float startTime;//, endTime;
-     public int bandIndex;
-     public float bias = 0.5f;
+    public float startTime;//, endTime;
+    public int bandIndex;
+    public float bias = 0.5f;
 }
 
 
@@ -22,14 +22,15 @@ public class AudioManager : MonoBehaviour
     public int currentClipIndex;
 
 
-
+    GameObject pointLight;
     public SubClip[] subClips = new SubClip[20];
 
 
 
     void Start()
     {
-        audioSource = GameObject.Find("Music").GetComponent<AudioSource>();
+        pointLight = GameObject.Find("Sun");
+        audioSource = GameObject.FindObjectOfType<AudioSource>();
 
         audioSource.Play();
         isPaused = false;
@@ -42,27 +43,21 @@ public class AudioManager : MonoBehaviour
     {
 
 
-        if (currentClipIndex < subClips.Length - 1 && audioSource.time > subClips[currentClipIndex + 1].startTime && 
+        if (currentClipIndex < subClips.Length - 1 && audioSource.time > subClips[currentClipIndex + 1].startTime &&
         subClips[currentClipIndex + 1].startTime != 0 && subClips[currentClipIndex].startTime < subClips[currentClipIndex + 1].startTime)
         {
 
             currentClipIndex++;
 
         }
-        //Debug.Log(currentClipIndex);
-        // if (audioSource.time == startTime)
 
-
-        // audioSource.Stop();
-        // Debug.Log(audioSource.clip.length);
-
-        // if (audioSource.time >= endTime )
-        // audioSource.Stop();
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         for (int i = 0; i < weapons.Length; i++)
         {
             //weapons[i].GetComponent<AudioSyncer>().subClipIndex ANTERIOR
             weapons[i].GetComponent<AudioSyncer>().subClip = subClips[currentClipIndex];
+            if (pointLight)
+                pointLight.GetComponent<AudioSyncer>().subClip = subClips[currentClipIndex];
             //if (currentClipIndex > weapons[i].GetComponent<AudioSyncer>().subClipIndex)
             {
                 // if (!weapons[i].transform.parent.gameObject.CompareTag("Player"))

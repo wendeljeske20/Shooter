@@ -6,7 +6,7 @@ public class Missile : Projectile
 {
     //Spaceship[] potencialTargets;
     Spaceship target;
-    public float rotationSpeed;
+    [HideInInspector] public float rotationSpeed;
 
     //public float spinSpeed;
 
@@ -15,20 +15,14 @@ public class Missile : Projectile
         base.Start();
 
         if (team == Spaceship.Team.Enemy)
-            target = GameObject.Find("Player").GetComponent<Spaceship>();
+            target = GameObject.FindObjectOfType<Player>();
     }
-    protected override void Move()
+
+    protected override void Update()
     {
-        Vector3 followDirection = Vector3.forward;// transform.position -target.transform.position;
-        followDirection.Normalize();
-        transform.Translate(followDirection * moveSpeed * Time.deltaTime);
 
-        //  transform.Rotate(new Vector3(0, 0, spinSpeed) * Time.deltaTime);
-
-
-
-
-        // target = potencialTargets[0];
+        Move();
+        rotationSpeed -= 3 * Time.deltaTime;
 
         if (team == Spaceship.Team.Player)
             FindClosestEnemy();
@@ -36,7 +30,13 @@ public class Missile : Projectile
 
         if (target)
             LookAtTarget();
-        // transform.LookAt(targetTransform.position, Vector3.forward);
+    }
+    protected override void Move()
+    {
+        Vector3 followDirection = Vector3.forward;
+        followDirection.Normalize();
+        transform.Translate(followDirection * moveSpeed * Time.deltaTime);
+
     }
 
     void FindClosestEnemy()
@@ -61,12 +61,6 @@ public class Missile : Projectile
 
     void LookAtTarget()
     {
-        //transform.LookAt(target.transform.position);
-        //angle = Vector3.SignedAngle(targetTransform.position - transform.position, Vector3.right, Vector3.forward);
-        // eulers = transform.eulerAngles;
-        //eulers.x = -angle;
-
-        // transform.rotation = Quaternion.LookRotation(angle, Vector3.right);
         Quaternion targetRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.forward);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 

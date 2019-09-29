@@ -10,20 +10,20 @@ public class Spaceship : MonoBehaviour
         Player,
     }
 
-    
+
     public Team team;
     AudioSyncer audioSyncer;
 
     public float maxHealth;
-    public float currentHealth;
-    public Weapon[] weapons;
+    protected float currentHealth;
+    [HideInInspector] public Weapon[] weapons;
     public float moveSpeed = 5f;
 
 
     protected virtual void Start()
     {
         currentHealth = maxHealth;
-        
+
         weapons = transform.GetComponentsInChildren<Weapon>();
 
 

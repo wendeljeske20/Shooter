@@ -14,7 +14,7 @@ public class PlasmaGun : Weapon
         Plasma plasma = Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<Plasma>();
         plasma.team = team;
         plasma.moveSpeed = projectileSpeed;
-        plasma.damage = damage;
+        plasma.damage = projectileDamage;
     }
 
    

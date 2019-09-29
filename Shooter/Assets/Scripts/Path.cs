@@ -55,7 +55,16 @@ public class Path : ScriptableObject
     public Vector3 StartPosition { get { return positionList[0]; } }
     public Vector3 EndPosition { get { return positionList[positionList.Count - 1]; } }
 
+    void DrawCurve()
+    {
+        for (int i = less; i < greater; i++)
+        {
+            float time = i;
+            Vector3 position = CreateCurve(time);
 
+            AddPosition(time, position);
+        }
+    }
     public Vector3 CreateCurve(float time, bool debug = false)
     {
         float t = 0, x = 0, y = 0, u = 0, v = 0;
@@ -114,8 +123,7 @@ public class Path : ScriptableObject
         position.x += offset.x;
         position.y += offset.y;
 
-        if (debug)
-            AddPosition(time, position);
+
 
         return position;
 
@@ -134,7 +142,7 @@ public class Path : ScriptableObject
         //if (less < 0)
         //    pointsAmount = greater + less;
         //else
-            pointsAmount = greater - less;
+        pointsAmount = greater - less;
         //if (less < 0 && greater - less > pointsAmount)
         ///     greater = pointsAmount + less;
         // else if (less >= 0 && greater - less > pointsAmount)
@@ -152,10 +160,9 @@ public class Path : ScriptableObject
     {
         positionList.Clear();
 
-        for (int i = less; i < greater; i++)
-        {
-            CreateCurve(i, true);
-        }
+
+        DrawCurve();
+
 
 
 
