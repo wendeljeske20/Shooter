@@ -8,6 +8,7 @@ public class Plasma : Projectile
 
     protected override void Move()
     {
+		base.Move();
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
         //Debug.DrawLine(transform.position,  transform.position + targetDirection,Color.red, 1);
     }

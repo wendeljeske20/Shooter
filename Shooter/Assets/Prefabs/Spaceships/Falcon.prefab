@@ -226,6 +226,7 @@ MonoBehaviour:
   target: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
   exitDirection: {x: 0, y: 0, z: 0}
+  rotationSpeed: 100
   pathPosition: 0
 --- !u!114 &860736462397167459
 MonoBehaviour:
@@ -244,7 +245,7 @@ MonoBehaviour:
     bandIndex: 0
     bias: 0.5
   subClipIndex: 0
-  timeStep: 0.3
+  timeStep: 0.1
   timer: 0
   isBeat: 0
 --- !u!65 &7072843584978385890

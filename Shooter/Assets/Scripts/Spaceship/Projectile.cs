@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 
     protected virtual void Move()
     {
-
+		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     protected void OnTriggerEnter(Collider other)
