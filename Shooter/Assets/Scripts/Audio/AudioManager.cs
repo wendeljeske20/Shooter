@@ -110,67 +110,67 @@ public class AudioManager : MonoBehaviour
 
 }
 
-[CustomEditor(typeof(AudioManager))]
-public class AudioManagerEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        AudioManager audioManager = (AudioManager)target;
+// [CustomEditor(typeof(AudioManager))]
+// public class AudioManagerEditor : Editor
+// {
+//     public override void OnInspectorGUI()
+//     {
+//         AudioManager audioManager = (AudioManager)target;
 
-        if (!audioManager.isPaused)
-        {
-            if (GUILayout.Button("Pause Music"))
-            {
-                audioManager.PauseMusic();
-            }
-        }
-        else
-        {
-            if (GUILayout.Button("Resume Music"))
-            {
-                audioManager.ResumeMusic();
-            }
-        }
+//         if (!audioManager.isPaused)
+//         {
+//             if (GUILayout.Button("Pause Music"))
+//             {
+//                 audioManager.PauseMusic();
+//             }
+//         }
+//         else
+//         {
+//             if (GUILayout.Button("Resume Music"))
+//             {
+//                 audioManager.ResumeMusic();
+//             }
+//         }
 
 
 
-        for (int i = 0; i < audioManager.subClips.Length; i++)
-        {
-            Rect rect = EditorGUILayout.GetControlRect(false, 2);
+//         for (int i = 0; i < audioManager.subClips.Length; i++)
+//         {
+//             Rect rect = EditorGUILayout.GetControlRect(false, 2);
 
-            //rect.height = 2;
+//             //rect.height = 2;
 
-            EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 1));
+//             EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 1));
 
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Clip " + (i + 1));
+//             EditorGUILayout.BeginHorizontal();
+//             GUILayout.Label("Clip " + (i + 1));
 
-            if (GUILayout.Button("Play"))
-            {
-                audioManager.PlaySubClip(i);
-            }
+//             if (GUILayout.Button("Play"))
+//             {
+//                 audioManager.PlaySubClip(i);
+//             }
 
-            EditorGUILayout.EndHorizontal();
+//             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.Space();
+//             EditorGUILayout.Space();
 
-            EditorGUILayout.BeginHorizontal();
+//             EditorGUILayout.BeginHorizontal();
 
-            if (audioManager.subClips != null)
-            {
-                audioManager.subClips[i].startTime = EditorGUILayout.FloatField("Start Time", audioManager.subClips[i].startTime);
-            }
+//             if (audioManager.subClips != null)
+//             {
+//                 audioManager.subClips[i].startTime = EditorGUILayout.FloatField("Start Time", audioManager.subClips[i].startTime);
+//             }
 
-            EditorGUILayout.EndHorizontal();
+//             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Band");
-            audioManager.subClips[i].bandIndex = EditorGUILayout.IntSlider(audioManager.subClips[i].bandIndex, 0, 7);
+//             EditorGUILayout.BeginHorizontal();
+//             GUILayout.Label("Band");
+//             audioManager.subClips[i].bandIndex = EditorGUILayout.IntSlider(audioManager.subClips[i].bandIndex, 0, 7);
 
-            GUILayout.Label("Bias");
-            audioManager.subClips[i].bias = EditorGUILayout.Slider(audioManager.subClips[i].bias, 0, 1);
-            EditorGUILayout.EndHorizontal();
-        }
+//             GUILayout.Label("Bias");
+//             audioManager.subClips[i].bias = EditorGUILayout.Slider(audioManager.subClips[i].bias, 0, 1);
+//             EditorGUILayout.EndHorizontal();
+//         }
 
-    }
-}
+//     }
+// }

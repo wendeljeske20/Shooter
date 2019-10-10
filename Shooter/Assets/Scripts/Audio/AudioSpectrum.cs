@@ -53,10 +53,19 @@ public class AudioSpectrum : MonoBehaviour
         }
 
     }
+
+
+    public void ChangeToMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
+        {
+            ChangeToMenu();
+        }
+
 
         musicTimeText.text = audioSource.time.ToString();
         GetMaxScale = scale;
