@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  maxHealth: 500
+  maxHealth: 400
   weapons:
   - {fileID: 7068920768826340294}
   moveSpeed: 5
